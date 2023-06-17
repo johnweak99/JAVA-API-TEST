@@ -1,0 +1,98 @@
+swagger: "2.0"
+info:
+  description: "This is the XYZ API"
+  version: "1.0.0"
+  title: "XYZ API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "donascor@clubhotel.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/api"
+tags:
+- name: "letters"
+  description: "Letters API"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /letters/{letters}/{size}:
+    get:
+      tags:
+        - "letters"
+      summary: "Get the letters with the right size"
+      description: "Get the letters with the right size"
+      operationId: "generateLetter"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - in: path
+          name: "letters"
+          description: "String of letters"
+          required: true
+        - in: path
+          name: "size"
+          description: "Size of the letters"
+          required: true
+
+      responses:
+        200:
+          description: "Generated letters"
+          schema:
+            type: string
+        405:
+          description: "Invalid input"
+
+  /letters:
+    post:
+      tags:
+      - "letters"
+      summary: "Get the letters with the right size"
+      description: "Get the letters with the right size"
+      operationId: "generateLetter"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "letterSpecification"
+        description: "Letter specification containing the letter and its size"
+        required: true
+        schema:
+          $ref: "#/definitions/LetterSpecification"
+      responses:
+        200: 
+          description: "Generated letters"
+          schema:
+            type: string
+        405:
+          description: "Invalid input"
+
+definitions:
+  LetterSpecification:
+    type: "object"
+    properties:
+      letters:
+        type: "string"
+        description: "Input letters"
+      size:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "LetterSpecification"
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
